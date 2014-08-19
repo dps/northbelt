@@ -9,9 +9,10 @@ Hardware
 Pololu A-Star
 -------------
 
-[[http://www.pololu.com/file/0J784/a-star-32u4-mini-pinout.pdf][A* Pinout]]
+[A* Pinout](http://www.pololu.com/file/0J784/a-star-32u4-mini-pinout.pdf)
 
     A*  <---> LS303
+    -----------------------
     5V  <---> 5V
     GND <---> GND
     2   <---> SDA
