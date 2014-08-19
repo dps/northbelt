@@ -5,6 +5,11 @@ LSM303 compass;
 LSM303::vector<int16_t> running_min = {32767, 32767, 32767}, running_max = {-32768, -32768, -32768};
 
 int CALIBRATE_LOOPS = 10000;
+int VIBE_BASE = 4;
+int VIBE_COUNT = 16;
+
+float heading = 0.0;
+float lastVibratedHeading = 180.0;
 
 void calibrate() {
   
@@ -19,11 +24,6 @@ void calibrate() {
     running_max.y = max(running_max.y, compass.m.y);
     running_max.z = max(running_max.z, compass.m.z);
     
-    snprintf(report, sizeof(report), "min: {%+6d, %+6d, %+6d}    max: {%+6d, %+6d, %+6d}",
-      running_min.x, running_min.y, running_min.z,
-      running_max.x, running_max.y, running_max.z);
-    Serial.println(report);
-    
     delay(100);
     }
 }
@@ -34,10 +34,17 @@ void setup() {
   compass.init();
   compass.enableDefault();
   
+  for (int i = 0; i < VIBE_COUNT; i++) {
+    pinMode(VIBE_BASE + i, OUTPUT);
+  }
+  
   calibrate();
 
   compass.m_min = running_min;
   compass.m_max = running_max;
+}
+
+void maybeVibrateHeading() {
 }
 
 void loop() {
@@ -61,7 +68,8 @@ void loop() {
   
   to use the +Z axis as a reference.
   */
-  float heading = compass.heading();
+  heading = compass.heading();
+  maybeVibrateHeading();
   
   Serial.println(heading);
   delay(100);
