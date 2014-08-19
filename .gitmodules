@@ -1,0 +1,3 @@
+[submodule "lsm303-arduino"]
+	path = lsm303-arduino
+	url = https://github.com/pololu/lsm303-arduino
