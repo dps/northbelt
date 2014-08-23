@@ -4,10 +4,16 @@
 LSM303 compass;
 LSM303::vector<int16_t> running_min = {32767, 32767, 32767}, running_max = {-32768, -32768, -32768};
 
-int CALIBRATE_LOOPS = 10000;
+int CALIBRATE_LOOPS = 100;
 int VIBE_BASE = 4;
 int VIBE_COUNT = 16;
+int SMOOTHING_DEGREES = 5;
 
+float CENTER_WEDGE = (360 / VIBE_COUNT) / 2;
+
+int currentVibePin = VIBE_BASE;
+
+int vibrateCycles = 0;
 float heading = 0.0;
 float lastVibratedHeading = 180.0;
 
@@ -45,6 +51,33 @@ void setup() {
 }
 
 void maybeVibrateHeading() {
+  int motor = 0;
+  int wedge = 0;
+  if (abs(lastVibratedHeading - heading) > SMOOTHING_DEGREES) {
+    lastVibratedHeading = heading;
+
+    Serial.println("****");    
+    wedge = (((int)(heading + CENTER_WEDGE)) % 360);
+    wedge = wedge / (360 / VIBE_COUNT);
+    Serial.println(wedge);
+    
+    motor = wedge + VIBE_BASE;
+    Serial.println(motor);
+    Serial.println(" ** ");
+    digitalWrite(currentVibePin, LOW);
+    digitalWrite(motor, HIGH);
+    currentVibePin = motor;
+    vibrateCycles = 8;
+  }
+}
+
+void vibrateClock() {
+  if (vibrateCycles > 0) {
+    vibrateCycles--;
+    if (vibrateCycles == 0) {
+      digitalWrite(currentVibePin, LOW);
+    }
+  }
 }
 
 void loop() {
@@ -70,6 +103,7 @@ void loop() {
   */
   heading = compass.heading();
   maybeVibrateHeading();
+  vibrateClock();
   
   Serial.println(heading);
   delay(100);
