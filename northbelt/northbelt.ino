@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <LSM303.h>
+#include <EEPROM.h>
 
 #define DEBUG 1
 
@@ -11,6 +12,9 @@ int VIBE_BASE = 4;
 int VIBE_COUNT = 16;
 int SMOOTHING_DEGREES = 5;
 int LED_PIN = 13;
+
+int EEPROM_CALIBRATED_ADDR = 0;
+int EEPROM_CALIBRATION_VECTOR_ADDR = 1;
 
 float CENTER_WEDGE = (360 / VIBE_COUNT) / 2;
 
@@ -38,6 +42,22 @@ void makeCalibrateDoneVibePattern() {
       digitalWrite(i, LOW);
     }
   }
+}
+
+void dumpCalibrationData() {
+    Serial.print("calibration data: ");
+    Serial.print(running_min.x);
+    Serial.print(" ");
+    Serial.print(running_min.y);
+    Serial.print(" ");
+    Serial.print(running_min.z);
+    Serial.print(", ");
+    Serial.print(running_max.x);
+    Serial.print(" ");
+    Serial.print(running_max.y);
+    Serial.print(" ");
+    Serial.print(running_max.z);
+    Serial.println();
 }
 
 void calibrate() {
@@ -68,29 +88,83 @@ void calibrate() {
   }
 
   if (DEBUG) {
-    Serial.print("calibrate ");
-    Serial.print(running_min.x);
-    Serial.print(" ");
-    Serial.print(running_min.y);
-    Serial.print(" ");
-    Serial.print(running_min.z);
-    Serial.print(", ");
-    Serial.print(running_max.x);
-    Serial.print(" ");
-    Serial.print(running_max.y);
-    Serial.print(" ");
-    Serial.print(running_max.z);
-    Serial.println();
+    dumpCalibrationData();
   }
   
   makeCalibrateDoneVibePattern();
 }
 
+bool isCalibrated() {
+  // Unwritten addresses have the value 255.
+  // We write 128 when marking uncalibrated so we can
+  // distinguish the two states.
+  // We write 0 when calibration data is stored.
+  int val = EEPROM.read(EEPROM_CALIBRATED_ADDR);
+  if (DEBUG) {
+    Serial.print("calibrated? ");
+    Serial.println(val);
+  }
+  return val < 128;
+}
+
+int16_t readInt16FromEEPROM(int addr) {
+  int16_t ret;
+  byte* p = (byte*)(void*)&ret;
+  for (int i = 0; i < sizeof(int16_t); i++) {
+    *p++ = EEPROM.read(addr++);
+  }
+  return ret;
+}
+
+void writeInt16ToEEPROM(int addr, int16_t val) {
+  byte* p = (byte*)(void*)&val;
+  for (int i = 0; i < sizeof(int16_t); i++) {
+    EEPROM.write(addr++, *p++);
+  }
+}
+
+void readCalibrationData() {
+  int addr = EEPROM_CALIBRATION_VECTOR_ADDR;
+  running_min.x = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  running_min.y = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  running_min.z = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  
+  running_max.x = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  running_max.y = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  running_max.z = readInt16FromEEPROM(addr);
+  addr += sizeof(int16_t);
+  
+  if (DEBUG) {
+    Serial.print("READ from EEPROM ");
+    dumpCalibrationData();
+  }
+}
+
+void writeCalibrationData() {
+  int addr = EEPROM_CALIBRATION_VECTOR_ADDR;
+  writeInt16ToEEPROM(addr, running_min.x);
+  addr += sizeof(int16_t);
+  writeInt16ToEEPROM(addr, running_min.y);
+  addr += sizeof(int16_t);
+  writeInt16ToEEPROM(addr, running_min.z);
+  addr += sizeof(int16_t);
+  writeInt16ToEEPROM(addr, running_max.x);
+  addr += sizeof(int16_t);
+  writeInt16ToEEPROM(addr, running_max.y);
+  addr += sizeof(int16_t);
+  writeInt16ToEEPROM(addr, running_max.z);
+  addr += sizeof(int16_t);
+
+  EEPROM.write(EEPROM_CALIBRATED_ADDR, 0);
+}
+
 void setup() {
   Serial.begin(9600);
-  if (DEBUG) {
-    Serial.println("DEBUG");
-  }
   Wire.begin();
   compass.init();
   compass.enableDefault();
@@ -100,8 +174,20 @@ void setup() {
   }
   
   pinMode(LED_PIN, OUTPUT);
+
+  if (DEBUG) {
+    digitalWrite(LED_PIN, HIGH);
+    delay(1500);
+    Serial.println("DEBUG");
+    digitalWrite(LED_PIN, LOW);
+  }
   
-  calibrate();
+  if (!isCalibrated()) {
+    calibrate();
+    writeCalibrationData();
+  } else {
+    readCalibrationData();
+  }
 
   compass.m_min = running_min;
   compass.m_max = running_max;
