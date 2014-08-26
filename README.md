@@ -8,6 +8,15 @@ This repo contains Arduino code for a wearable compass, consisting of a belt wit
 Hardware
 ========
 
+Prototype
+---------
+ * [A-Star 32U4 Mini ULV](http://www.pololu.com/product/3102)
+ * [LSM303DLHC 3D Compass and Accelerometer breakout](http://www.pololu.com/product/2124)
+ * [LiPoly charger](http://www.adafruit.com/products/259)
+ * [Lithium Ion Polymer Battery - 3.7v 500mAh](http://www.adafruit.com/products/1578)
+ * [Vibrating Mini Motor Disc](http://www.adafruit.com/products/1201) x 16
+ * 100Ω resistor x 16
+
 Pololu A-Star
 -------------
 
