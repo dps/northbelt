@@ -3,6 +3,8 @@ northbelt
 
 A belt that buzzes north
 
+This repo contains Arduino code for a wearable compass, consisting of a belt with a number of mobile phone vibration motors mounted along its circumference.  As the wearer moves around, the motor closest to magnetic north buzzes.  According to [this WIRED article](http://archive.wired.com/wired/archive/15.04/esp.html), through the miracle of [brain plasticity](http://en.wikipedia.org/wiki/Neuroplasticity), this will give the gift of an amazing sixth sense of direction.
+
 Hardware
 ========
 
