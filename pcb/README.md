@@ -1,0 +1,1 @@
+The components for the motor board can be found in the mouser saved project located at http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=1ebce4eb52
