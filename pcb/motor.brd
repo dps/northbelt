@@ -1518,7 +1518,7 @@ design rules under a new name.</description>
 </autorouter>
 <elements>
 <element name="Q1" library="transistor-npn" package="SOT23" value="BC847" x="11.43" y="7.62" smashed="yes" rot="R270"/>
-<element name="SG1" library="buzzer" package="B/C11L" value="B/C11L" x="7.62" y="19.05" smashed="yes">
+<element name="M1" library="buzzer" package="B/C11L" value="ada1201" x="7.62" y="19.05" smashed="yes">
 <attribute name="OC_NEWARK" value="unknown" x="7.62" y="19.05" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="" x="7.62" y="19.05" size="1.778" layer="27" display="off"/>
 <attribute name="MF" value="" x="7.62" y="19.05" size="1.778" layer="27" display="off"/>
@@ -1568,7 +1568,7 @@ design rules under a new name.</description>
 <contactref element="Q1" pad="3"/>
 <contactref element="D1" pad="A"/>
 <contactref element="C1" pad="2"/>
-<contactref element="SG1" pad="2"/>
+<contactref element="M1" pad="2"/>
 <wire x1="11.43" y1="11.43" x2="8.89" y2="11.43" width="0.762" layer="1"/>
 <wire x1="8.89" y1="11.43" x2="8.47" y2="11.43" width="0.762" layer="1"/>
 <wire x1="11.43" y1="11.43" x2="11.3792" y2="10.795" width="0.762" layer="1"/>
@@ -1584,7 +1584,7 @@ design rules under a new name.</description>
 <signal name="N$4">
 <contactref element="D1" pad="C"/>
 <contactref element="C1" pad="1"/>
-<contactref element="SG1" pad="1"/>
+<contactref element="M1" pad="1"/>
 <contactref element="R2" pad="2"/>
 <wire x1="3.81" y1="11.43" x2="6.77" y2="11.43" width="0.762" layer="1"/>
 <wire x1="3.81" y1="11.43" x2="3.8608" y2="10.795" width="0.762" layer="1"/>

@@ -7682,7 +7682,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </classes>
 <parts>
 <part name="Q1" library="transistor-npn" deviceset="BCX70*" device="SMD" value="BC847"/>
-<part name="SG1" library="buzzer" deviceset="B/C11L" device=""/>
+<part name="M1" library="buzzer" deviceset="B/C11L" device="" value="ada1201"/>
 <part name="R1" library="resistor" deviceset="R-US_" device="R0805" value="1k"/>
 <part name="R2" library="resistor" deviceset="R-US_" device="R0805" value="33"/>
 <part name="D1" library="diode" deviceset="DIODE-" device="DO214AC"/>
@@ -7696,7 +7696,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </plain>
 <instances>
 <instance part="Q1" gate="G$1" x="25.4" y="30.48"/>
-<instance part="SG1" gate="G$1" x="50.8" y="43.18" rot="R270"/>
+<instance part="M1" gate="G$1" x="50.8" y="43.18" rot="R270"/>
 <instance part="R1" gate="G$1" x="12.7" y="30.48"/>
 <instance part="R2" gate="G$1" x="15.24" y="48.26"/>
 <instance part="D1" gate="G$1" x="33.02" y="40.64" rot="R90"/>
@@ -7735,7 +7735,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="33.02" y1="35.56" x2="33.02" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="38.1" x2="33.02" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="SG1" gate="G$1" pin="2"/>
+<pinref part="M1" gate="G$1" pin="2"/>
 <wire x1="48.26" y1="38.1" x2="40.64" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -7745,7 +7745,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="33.02" y1="43.18" x2="33.02" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="33.02" y1="45.72" x2="40.64" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="SG1" gate="G$1" pin="1"/>
+<pinref part="M1" gate="G$1" pin="1"/>
 <wire x1="48.26" y1="45.72" x2="40.64" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="R2" gate="G$1" pin="2"/>
 <wire x1="20.32" y1="48.26" x2="48.26" y2="48.26" width="0.1524" layer="91"/>
