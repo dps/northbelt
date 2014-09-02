@@ -15,7 +15,9 @@ Prototype
  * [LiPoly charger](http://www.adafruit.com/products/259)
  * [Lithium Ion Polymer Battery - 3.7v 500mAh](http://www.adafruit.com/products/1578)
  * [Vibrating Mini Motor Disc](http://www.adafruit.com/products/1201) x 16
- * 100Ω resistor x 16
+ * Motor board x16
+ * 20 way ribbon cable
+ * [Belt](http://amzn.com/B001FOR2CY)
 
 Pololu A-Star
 -------------
