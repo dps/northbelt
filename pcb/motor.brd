@@ -38,7 +38,7 @@
 <layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
@@ -64,6 +64,18 @@
 <wire x1="15.24" y1="27.94" x2="0" y2="27.94" width="0.762" layer="25"/>
 <wire x1="0" y1="0" x2="15.24" y2="0" width="0.762" layer="25"/>
 <wire x1="0" y1="0" x2="0" y2="27.94" width="0.762" layer="25"/>
+<hole x="1.27" y="26.67" drill="0.6"/>
+<hole x="13.97" y="26.67" drill="0.6"/>
+<hole x="1.27" y="13.97" drill="0.6"/>
+<hole x="11.43" y="13.97" drill="0.6"/>
+<hole x="2.54" y="13.97" drill="0.6"/>
+<hole x="2.54" y="26.67" drill="0.6"/>
+<hole x="12.7" y="26.67" drill="0.6"/>
+<hole x="10.16" y="13.97" drill="0.6"/>
+<hole x="1.27" y="20.32" drill="0.6"/>
+<hole x="1.27" y="19.05" drill="0.6"/>
+<hole x="13.97" y="21.59" drill="0.6"/>
+<hole x="13.97" y="20.32" drill="0.6"/>
 </plain>
 <libraries>
 <library name="transistor-npn">
